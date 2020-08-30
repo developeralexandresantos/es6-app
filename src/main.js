@@ -8,12 +8,16 @@ class App {
         this.formEl = document.getElementById('repo-form');
         this.inputEl = document.querySelector('input[name=repository]');
         this.cardboxEl = document.getElementById('divlista');
+        this.frmsearchEl = document.getElementById('frmSearch');
+        this.searchinputEl = document.getElementById('searchInput');
 
         this.registerHandlers();
     }
 
     registerHandlers() {
         this.formEl.onsubmit = event => this.addRepository(event);
+        this.frmsearchEl.onsubmit = event => this.searchRepository(event);
+
     }
 
     setLoading(loading = true) {
@@ -26,6 +30,37 @@ class App {
         } else {
             document.getElementById('loading').remove();
         }
+    };
+
+    async searchRepository(event) {
+        event.preventDefault();
+
+        const searchInput = this.searchinputEl.value;
+            if ( searchInput === 0)
+            return;
+
+            try {
+                const response = await api.get(`api/findByName?nome=${searchInput}`);
+                const { nome, sobrenome, telefone, endereco:{ logradouro, numero, complemento, cidade, estado, cep } } = response.data;
+
+                this.repositories.push({
+                    nome, 
+                    sobrenome, 
+                    telefone, 
+                    logradouro, 
+                    numero, 
+                    complemento, 
+                    cidade, 
+                    estado, 
+                    cep
+                });
+
+                this.searchinputEl.value = '';
+                this.render();
+            } catch (err) {
+                console.log('Usuário não localizado.')
+            }
+
     };
 
     async addRepository(event) {
@@ -59,6 +94,7 @@ class App {
 
             this.inputEl.value = '';
             this.render();
+
         } catch (err) {
             console.log(err);
             console.log('O repositório não existe!');
@@ -67,7 +103,13 @@ class App {
         this.setLoading(false);
     }
     render() {
-        this.cardboxEl.innerHTML = '';
+
+        const cardEl = document.getElementById('card');
+
+        console.log(typeof(cardEl));
+        // if(cardEl.firstChild !== null){
+        //     cardEl.remove();
+        // }
 
         this.repositories.forEach(repo => {
             // let imgEl = document.createElement('img');
@@ -75,6 +117,7 @@ class App {
 
             let cardbox = document.createElement('div');
             cardbox.setAttribute('class','card');
+            cardbox.setAttribute('id','card');
 
             let cardboximg = document.createElement('img');
             cardboximg.setAttribute('class','card-img-top');
@@ -107,6 +150,8 @@ class App {
             cardbox.appendChild(cardbody);
 
             this.cardboxEl.appendChild(cardbox);
+
+            console.log(this.cardboxEl);
 
         });
     };
