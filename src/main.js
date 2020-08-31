@@ -35,11 +35,11 @@ class App {
     async searchRepository(event) {
         event.preventDefault();
 
-        while(this.cardboxEl.lastChild){
+        while(this.cardboxEl.lastChild) {
             this.repositories = [];
             this.cardboxEl.firstChild.remove();
         }
-
+        
         const searchInput = this.searchinputEl.value;
             if ( searchInput === 0)
             return;
@@ -71,7 +71,7 @@ class App {
     async addRepository(event) {
         event.preventDefault();
 
-        while(this.cardboxEl.lastChild){
+        while(this.cardboxEl.lastChild) {
             this.repositories = [];
             this.cardboxEl.firstChild.remove();
         }
