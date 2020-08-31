@@ -35,6 +35,11 @@ class App {
     async searchRepository(event) {
         event.preventDefault();
 
+        while(this.cardboxEl.lastChild) {
+            this.repositories = [];
+            this.cardboxEl.firstChild.remove();
+        }
+        
         const searchInput = this.searchinputEl.value;
             if ( searchInput === 0)
             return;
@@ -65,6 +70,11 @@ class App {
 
     async addRepository(event) {
         event.preventDefault();
+
+        while(this.cardboxEl.lastChild) {
+            this.repositories = [];
+            this.cardboxEl.firstChild.remove();
+        }
 
         const repoInput = this.inputEl.value;
 
@@ -103,13 +113,6 @@ class App {
         this.setLoading(false);
     }
     render() {
-
-        const cardEl = document.getElementById('card');
-
-        console.log(typeof(cardEl));
-        // if(cardEl.firstChild !== null){
-        //     cardEl.remove();
-        // }
 
         this.repositories.forEach(repo => {
             // let imgEl = document.createElement('img');
