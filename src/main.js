@@ -35,6 +35,11 @@ class App {
     async searchRepository(event) {
         event.preventDefault();
 
+        while(this.cardboxEl.lastChild){
+            this.repositories = [];
+            this.cardboxEl.firstChild.remove();
+        }
+
         const searchInput = this.searchinputEl.value;
             if ( searchInput === 0)
             return;
@@ -66,6 +71,11 @@ class App {
     async addRepository(event) {
         event.preventDefault();
 
+        while(this.cardboxEl.lastChild){
+            this.repositories = [];
+            this.cardboxEl.firstChild.remove();
+        }
+
         const repoInput = this.inputEl.value;
 
         if (repoInput.length === 0)
@@ -75,7 +85,7 @@ class App {
 
         try {
             const response = await api.get(`api/${repoInput}`);
-            
+
             for (let i = 0; i < response.data.length; i++) {
                 const { nome, sobrenome, telefone, endereco:{ logradouro, numero, complemento, cidade, estado, cep } } = response.data[i];
 
@@ -104,16 +114,7 @@ class App {
     }
     render() {
 
-        const cardEl = document.getElementById('card');
-
-        console.log(typeof(cardEl));
-        // if(cardEl.firstChild !== null){
-        //     cardEl.remove();
-        // }
-
         this.repositories.forEach(repo => {
-            // let imgEl = document.createElement('img');
-            // imgEl.setAttribute('src', repo.avatar_url);
 
             let cardbox = document.createElement('div');
             cardbox.setAttribute('class','card');
@@ -150,8 +151,6 @@ class App {
             cardbox.appendChild(cardbody);
 
             this.cardboxEl.appendChild(cardbox);
-
-            console.log(this.cardboxEl);
 
         });
     };
