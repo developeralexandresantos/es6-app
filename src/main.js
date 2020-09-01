@@ -153,9 +153,6 @@ class App {
             cardbox.appendChild(cardbody);
 
             this.cardboxEl.appendChild(cardbox);
-
-            console.log(this.cardboxEl);
-
         });
     };
 }
