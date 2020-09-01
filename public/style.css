@@ -5,3 +5,11 @@
 .card {
     margin-top: 10px !important;
 }
+
+.material-icons {
+    vertical-align: middle;
+}
+
+.material-icons.left{
+    font-size: 30px;
+}
