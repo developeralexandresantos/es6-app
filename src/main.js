@@ -15,7 +15,6 @@ class App {
     }
 
     registerHandlers() {
-        debugger
         this.formEl.onsubmit = event => this.addRepository(event);
         this.frmsearchEl.onsubmit = event => this.searchRepository(event);
 
@@ -160,7 +159,7 @@ class App {
 
             cardbox.appendChild(cardboximg);
             cardbox.appendChild(cardbody);
-
+            
             this.cardboxEl.appendChild(cardbox);
         });
     };
