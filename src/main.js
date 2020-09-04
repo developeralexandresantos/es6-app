@@ -71,7 +71,7 @@ class App {
             this.searchinputEl.value = '';
             this.render();
         } catch (err) {
-            console.log('Usuário não localizado.')
+            alert('Usuário não localizado.')
         }
 
     };
@@ -114,8 +114,7 @@ class App {
                 this.render();
 
             } catch (err) {
-                console.log(err);
-                console.log('O repositório não existe!');
+                alert('Colaborador não localizado.');
             }
             this.setLoading(false);
         }, 2000);
@@ -151,7 +150,7 @@ class App {
 
             let cardboxbutton = document.createElement('a');
             cardboxbutton.setAttribute('class', 'btn btn-primary');
-            cardboxbutton.appendChild(document.createTextNode('Go somewhere'));
+            cardboxbutton.appendChild(document.createTextNode('Ver perfil'));
 
             cardbody.appendChild(cardboxtitle);
             cardbody.appendChild(cardboxtext);

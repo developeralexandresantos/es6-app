@@ -18,21 +18,6 @@ class Post {
         this.btnclosemodalEl.onclick = () => this.mymodal.style.display = "none";
     }
 
-    // setLoading(loading = true) {
-    //     if (loading === true) {
-    //         let loadingEl = document.createElement('img');
-    //         loadingEl.setAttribute('src', './h6viz.gif');
-    //         loadingEl.setAttribute('id', 'loading');
-    //         loadingEl.style.display = 'block';
-    //         loadingEl.style.marginLeft = 'auto';
-    //         loadingEl.style.marginRight = 'auto';
-
-    //         this.formEl.appendChild(loadingEl);
-    //     } else {
-    //         document.getElementById('loading').remove();
-    //     }
-    // };
-
     async saveToRepository(event) {
         event.preventDefault();
         var formulario = {};
