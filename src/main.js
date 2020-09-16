@@ -122,8 +122,6 @@ class App {
     render() {
 
         this.repositories.forEach(repo => {
-            // let imgEl = document.createElement('img');
-            // imgEl.setAttribute('src', repo.avatar_url);
 
             let cardbox = document.createElement('div');
             cardbox.setAttribute('class', 'card');

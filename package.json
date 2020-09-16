@@ -19,9 +19,11 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --mode=development --port 8081",
-    "build": "webpack --mode=production"
+    "build": "webpack --mode=production",
+    "start": "node ./src/main.js"
   },
   "dependencies": {
-    "axios": "^0.20.0"
+    "axios": "^0.20.0",
+    "express": "^4.17.1"
   }
 }
