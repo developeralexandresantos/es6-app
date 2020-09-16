@@ -12,7 +12,8 @@ module.exports = {
     },
     devServer: {
         contentBase: __dirname + '/public',
-        host: '0.0.0.0'
+        host: '0.0.0.0',
+        disableHostCheck: true,
     },
     module: {
         rules: [
