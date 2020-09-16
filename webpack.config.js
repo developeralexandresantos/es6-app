@@ -11,7 +11,8 @@ module.exports = {
         filename: '[name].js',
     },
     devServer: {
-        contentBase: __dirname + '/public'
+        contentBase: __dirname + '/public',
+        host: "0.0.0.0"
     },
     module: {
         rules: [
