@@ -22,9 +22,15 @@ class App {
 
     setLoading(loading = true) {
         if (loading === true) {
-            let loadingEl = document.createElement('span');
-            loadingEl.appendChild(document.createTextNode('Carregando'));
+            // let loadingEl = document.createElement('span');
+            let loadingEl = document.createElement('img');
+            loadingEl.setAttribute('src', './h6viz.gif');
+            // loadingEl.appendChild(document.createTextNode('Carregando'));
             loadingEl.setAttribute('id', 'loading');
+            loadingEl.style.display = 'block';
+            loadingEl.style.marginLeft = 'auto';
+            loadingEl.style.marginRight = 'auto';
+
 
             this.formEl.appendChild(loadingEl);
         } else {
@@ -35,59 +41,20 @@ class App {
     async searchRepository(event) {
         event.preventDefault();
 
-        while(this.cardboxEl.lastChild) {
+        while (this.cardboxEl.lastChild) {
             this.repositories = [];
             this.cardboxEl.firstChild.remove();
         }
-        
+
         const searchInput = this.searchinputEl.value;
-            if ( searchInput === 0)
+        if (searchInput === 0)
             return;
-
-            try {
-                const response = await api.get(`api/findByName?nome=${searchInput}`);
-                const { nome, sobrenome, telefone, endereco:{ logradouro, numero, complemento, cidade, estado, cep } } = response.data;
-
-                this.repositories.push({
-                    nome, 
-                    sobrenome, 
-                    telefone, 
-                    logradouro, 
-                    numero, 
-                    complemento, 
-                    cidade, 
-                    estado, 
-                    cep
-                });
-
-                this.searchinputEl.value = '';
-                this.render();
-            } catch (err) {
-                console.log('Usuário não localizado.')
-            }
-
-    };
-
-    async addRepository(event) {
-        event.preventDefault();
-
-        while(this.cardboxEl.lastChild) {
-            this.repositories = [];
-            this.cardboxEl.firstChild.remove();
-        }
-
-        const repoInput = this.inputEl.value;
-
-        if (repoInput.length === 0)
-            return;
-
-        this.setLoading();
 
         try {
-            const response = await api.get(`api/${repoInput}`);
-            
+            const response = await api.get(`api/findByName?nome=${searchInput}`);
+
             for (let i = 0; i < response.data.length; i++) {
-                const { nome, sobrenome, telefone, endereco:{ logradouro, numero, complemento, cidade, estado, cep } } = response.data[i];
+                const { nome, sobrenome, telefone, endereco: { logradouro, numero, complemento, cidade, estado, cep } } = response.data[i];
 
                 this.repositories.push({
                     nome,
@@ -98,43 +65,81 @@ class App {
                     complemento,
                     cidade,
                     estado,
-                    cep,
+                    cep
                 });
             }
-
-            this.inputEl.value = '';
+            this.searchinputEl.value = '';
             this.render();
-
         } catch (err) {
-            console.log(err);
-            console.log('O repositório não existe!');
+            alert('Usuário não localizado.')
         }
 
-        this.setLoading(false);
+    };
+
+    async addRepository(event) {
+        event.preventDefault();
+
+        while (this.cardboxEl.lastChild) {
+            this.repositories = [];
+            this.cardboxEl.firstChild.remove();
+        }
+
+        const repoInput = this.inputEl.value;
+
+        if (repoInput.length === 0)
+            return;
+
+        this.setLoading();
+        setTimeout(async () => {
+            try {
+                const response = await api.get(`api/${repoInput}`);
+
+                for (let i = 0; i < response.data.length; i++) {
+                    const { nome, sobrenome, telefone, endereco: { logradouro, numero, complemento, cidade, estado, cep } } = response.data[i];
+
+                    this.repositories.push({
+                        nome,
+                        sobrenome,
+                        telefone,
+                        logradouro,
+                        numero,
+                        complemento,
+                        cidade,
+                        estado,
+                        cep,
+                    });
+                }
+
+                this.inputEl.value = '';
+                this.render();
+
+            } catch (err) {
+                alert('Colaborador não localizado.');
+            }
+            this.setLoading(false);
+        }, 2000);
     }
     render() {
 
         this.repositories.forEach(repo => {
-            // let imgEl = document.createElement('img');
-            // imgEl.setAttribute('src', repo.avatar_url);
 
             let cardbox = document.createElement('div');
-            cardbox.setAttribute('class','card');
-            cardbox.setAttribute('id','card');
+            cardbox.setAttribute('class', 'card');
+            cardbox.setAttribute('id', 'card');
 
             let cardboximg = document.createElement('img');
-            cardboximg.setAttribute('class','card-img-top');
-            cardboximg.setAttribute('src','./img_avatar2.png');
+            cardboximg.setAttribute('class', 'card-img-top');
+            cardboximg.setAttribute('src', './img_avatar2.png');
 
             let cardbody = document.createElement('div');
-            cardbody.setAttribute('class','card-body');
+            cardbody.setAttribute('class', 'card-body');
 
             let cardboxtitle = document.createElement('strong');
-            cardboxtitle.setAttribute('class','card-tile');
+            cardboxtitle.setAttribute('class', 'card-tile');
             cardboxtitle.appendChild(document.createTextNode(`${repo.nome} ${repo.sobrenome}`));
 
             let cardboxtext = document.createElement('p');
-            cardboxtext.setAttribute('class','card-text');
+            cardboxtext.setAttribute('class', 'card-text');
             cardboxtext.appendChild(document.createTextNode(`Endereço: ${repo.logradouro} Número: ${repo.numero}\n`));
 
             let cardboxtextcomplemento = document.createElement('p');
@@ -142,8 +147,8 @@ class App {
             cardboxtext.appendChild(cardboxtextcomplemento);
 
             let cardboxbutton = document.createElement('a');
-            cardboxbutton.setAttribute('class','btn btn-primary');
-            cardboxbutton.appendChild(document.createTextNode('Go somewhere'));
+            cardboxbutton.setAttribute('class', 'btn btn-primary');
+            cardboxbutton.appendChild(document.createTextNode('Ver perfil'));
 
             cardbody.appendChild(cardboxtitle);
             cardbody.appendChild(cardboxtext);
@@ -151,7 +156,7 @@ class App {
 
             cardbox.appendChild(cardboximg);
             cardbox.appendChild(cardbody);
-
+            
             this.cardboxEl.appendChild(cardbox);
         });
     };

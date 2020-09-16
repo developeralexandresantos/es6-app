@@ -1,11 +1,18 @@
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 module.exports = {
-    entry: ['@babel/polyfill','./src/main.js'],
+    entry: {
+        polyfill: '@babel/polyfill/noConflict',
+        app:'./src/main.js',
+        post:'./src/post.js'
+    },
     output: {
         path: __dirname + '/public',
-        filename: 'bundle.js',
+        filename: '[name].js',
     },
     devServer: {
-        contentBase: __dirname + '/public'
+        contentBase: __dirname + '/public',
+        host: '0.0.0.0'
     },
     module: {
         rules: [
@@ -18,4 +25,16 @@ module.exports = {
             }
         ],
     },
+    plugins: [
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: 'public/index.html',
+            chunks:['app'],
+        }),
+        new HtmlWebpackPlugin({
+            filename:'cadastro.html',
+            template: 'public/cadastro.html',
+            chunks:['post'],
+        }),
+    ]
 };
