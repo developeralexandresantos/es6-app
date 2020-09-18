@@ -20,4 +20,4 @@ COPY . .
 
 # Expose port and CMD
 EXPOSE 8081
-CMD ["yarn", "build"]
+CMD ["yarn", "start"]

@@ -20,7 +20,7 @@
   "scripts": {
     "dev": "webpack-dev-server --mode=development --port 8081",
     "build": "webpack --mode=production",
-    "start": "node ./src/index.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "axios": "^0.20.0",
