@@ -77,7 +77,6 @@ class App {
 
     async addRepository(event) {
         event.preventDefault();
-
         while (this.cardboxEl.lastChild) {
             this.repositories = [];
             this.cardboxEl.firstChild.remove();
