@@ -55,7 +55,6 @@ class App {
 
             for (let i = 0; i < response.data.length; i++) {
                 const { nome, sobrenome, telefone, endereco: { logradouro, numero, complemento, cidade, estado, cep } } = response.data[i];
-
                 this.repositories.push({
                     nome,
                     sobrenome,
@@ -92,11 +91,9 @@ class App {
         this.setLoading();
         setTimeout(async () => {
             try {
-                const response = await api.get(`api/${repoInput}`);
-
-                for (let i = 0; i < response.data.length; i++) {
-                    const { nome, sobrenome, telefone, endereco: { logradouro, numero, complemento, cidade, estado, cep } } = response.data[i];
-
+                const response = await api.get(`api/${repoInput}?sort=nome%2Casc&page=0&size=10`);
+                for (let i = 0; i < response.data.content.length; i++) {
+                    const { nome, sobrenome, telefone, endereco: { logradouro, numero, complemento, cidade, estado, cep } } = response.data.content[i];
                     this.repositories.push({
                         nome,
                         sobrenome,

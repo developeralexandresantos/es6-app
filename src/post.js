@@ -61,6 +61,7 @@ class Post {
             this.mymodal.style.display = 'block';
 
             this.formularioCadastroEl.reset();
+            window.scrollTo(0,0);
 
         } catch(err) {
             alert('Não foi possível gravar seu registro... tente novamente mais tarde.')
