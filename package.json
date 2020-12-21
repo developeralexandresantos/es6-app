@@ -18,7 +18,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "dev": "webpack-dev-server --mode=development --port 8081",
+    "dev": "webpack-dev-server --mode=development --port 8082",
     "build": "webpack --mode=production",
     "start": "node server.js"
   },

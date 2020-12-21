@@ -19,5 +19,5 @@ COPY . .
 #RUN npm prune --production
 
 # Expose port and CMD
-EXPOSE 8081
+EXPOSE 8082
 CMD ["yarn", "start"]
